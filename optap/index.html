@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ôn tập </title>
+</head>
+<body>
+    <div id="resultDiv"></div>
+    <body>
+        <script>
+        const products = ['Apple Mac Mini M4', 'Samsung Galaxy ..'];
+        const resultDiv = document.getElementById("resultDiv");
+        let items = '<table border="1"><tr><th>Tên sản phẩm</th></tr>';
+        for (let i = 0; i < products.length; i++) {
+            items += "<tr><td>" + products[i] + "</td></tr>";
+        }
+        items += '</table>';
+        resultDiv.innerHTML = items;
+    </script>
+</body>
+</html>
