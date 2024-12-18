@@ -10,12 +10,27 @@
 </head>
 
 <body>
-  <div class="wrapper">
-    <div class="game-details">
-      <span class="score">Score: 0</span>
-      <span class="high-score">High Score: 0</span>
-    </div>
-    <div class="play-board">
+  <div id="instructions" class="instructions">
+    <h1>Game Con Rắn</h1>
+    <p><strong>Hướng Dẫn Chơi:</strong></p>
+    <ul>
+      <li>Nhấn các phím mũi tên để di chuyển con rắn.</li>
+      <li>Ăn thức ăn nhỏ để tăng điểm (+1).</li>
+      <li>Ăn thức ăn lớn (Big Food) để tăng nhiều điểm (+5).</li>
+      <li>Game kết thúc khi rắn tự đâm vào mình.</li>
+    </ul>
+    <button id="startGame">Bắt Đầu</button>
+  </div>
+  
+  
+<div id="gameBox" class="box" style="display: none;">
+    <h1>Game Con Rắn</h1>
+    <div class="wrapper">
+      <div class="game-details">
+        <span class="score">Score: 0</span>
+        <span class="high-score">High Score: 0</span>
+      </div>
+      <div class="play-board"></div>
     </div>
   </div>
 </body>

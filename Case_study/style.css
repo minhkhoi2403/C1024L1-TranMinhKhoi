@@ -8,31 +8,67 @@
 body {
   background-image: url(images/nen.png.png);
   background-size: cover;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.instructions {
+  background-color: rgba(255, 255, 255, 0.9);
+  margin: 10% auto;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  width: 400px;
+}
+
+.instructions h1 {
+  margin-bottom: 15px;
+}
+
+.instructions ul {
+  text-align: left;
+  margin: 15px 0;
+  list-style-type: square;
+}
+
+.instructions button {
+  padding: 10px 20px;
+  font-size: 1.2em;
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.instructions button:hover {
+  background-color: #45a049;
+}
+
+.box {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  height: 100vh;
 }
-
 .wrapper {
+  margin-top: 40px;
+  margin-left: 530px;
   width: 65vmin;
   height: 70vmin;
   display: flex;
-  overflow: hidden;
   flex-direction: column;
-  justify-content: center;
-  border-radius: 5px;
   background: #0763be;
+  border-radius: 5px;
   box-shadow: 0 20px 40px rgba(63, 14, 113, 0.2);
 }
 
 .game-details {
-  color: #031214;
-  font-weight: 500;
-  font-size: 1.2rem;
-  padding: 20px 27px;
   display: flex;
   justify-content: space-between;
+  padding: 15px;
+  color: #ffffff;
+  font-size: 1.2rem;
 }
 
 .play-board {
@@ -47,10 +83,12 @@ body {
   background-image: url(images/cheese.png);
   background-size: cover;
 }
+
 .head {
   background-image: url(images/heo.png);
   background-size: cover;
 }
+
 .bigfood{
   background-image: url(images/hamburger.png);
   background-size: cover;

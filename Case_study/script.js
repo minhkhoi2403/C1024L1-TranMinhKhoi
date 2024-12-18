@@ -1,6 +1,9 @@
 const playBoard = document.querySelector(".play-board");
 const scoreElement = document.querySelector(".score");
 const highScoreElement = document.querySelector(".high-score");
+const startGameButton = document.getElementById("startGame");
+const instructions = document.getElementById("instructions");
+const gameBox = document.getElementById("gameBox");
 
 let gameOver = false;
 let foodX, foodY, bigFoodX, bigFoodY;
@@ -12,11 +15,11 @@ let score = 0;
 let showBigFood = false;
 let bigFoodTimeout;
 let bigFoodInterval;
-let isBigFoodCoolDownTimeout;
-let isBigFoodCoolDown = false;
+let bigFoodCoolDownTimeout;
+let bigFoodCoolDown = false;
 
 // Lưu trữ điểm cao nhất
-let highScore = localStorage.getItem("high-score") || 0;
+let highScore = localStorage.getItem("high-score");
 highScoreElement.innerText = `High Score: ${highScore}`;
 
 // Thay đổi vị trí thức ăn
@@ -31,15 +34,22 @@ const updateBigFoodPosition = () => {
   bigFoodY = Math.floor(Math.random() * 19) + 1;
   showBigFood = true;
 
-  // Bigfood tồn tại trong 10 giây
+  //Bigfood tồn tại trong 10 giây
   clearTimeout(bigFoodTimeout); // Hủy timeout trước đó nếu có
   bigFoodTimeout = setTimeout(() => {
     showBigFood = false; // Sau 10 giây, ẩn bigfood
-  }, 1000);
+  }, 10000);
 }
 
+// Bắt đầu Game
+const startGame = () => {
+  instructions.style.display = "none";
+  gameBox.style.display = "block";
+  updateFoodPosition();
+};
+
 // GameOver
-const handleGameOver = () => {
+const GameOver = () => {
   clearInterval(setIntervalId);
   clearTimeout(bigFoodTimeout);
   clearInterval(bigFoodInterval);
@@ -66,7 +76,7 @@ const changeDirection = e => {
 
 // Bắt đầu game
 const initGame = () => {
-  if (gameOver) return handleGameOver();
+  if (gameOver) return GameOver();
   let html = `<div class="food" style="grid-area: ${foodY} / ${foodX}"></div>`;
 
   // Kiểm tra xem rắn có ăn thức ăn không
@@ -98,7 +108,7 @@ const initGame = () => {
   snakeX += vantocX;
   snakeY += vantocY;
 
-  // Tăng chiều dài con rắn khi nó ăn được thức ăn
+  // Di Chuyển cơ thể con rắn
   for (let i = snakeBody.length - 1; i > 0; i--) {
     snakeBody[i] = snakeBody[i - 1];
   }
@@ -135,6 +145,8 @@ const initGame = () => {
 
 updateFoodPosition();
 updateBigFoodPosition();
-setIntervalId = setInterval(initGame, 125);
+setIntervalId = setInterval(initGame, 155);
 bigFoodInterval= setInterval(updateBigFoodPosition, 10000);
+document.addEventListener("keyup", changeDirection);
+startGameButton.addEventListener("click", startGame);
 document.addEventListener("keyup", changeDirection);
