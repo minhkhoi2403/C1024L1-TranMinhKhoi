@@ -1,3 +1,4 @@
+/* CSS Reset */
 * {
   margin: 0;
   padding: 0;
@@ -5,20 +6,39 @@
   font-family: 'Open Sans', sans-serif;
 }
 
-body {
-  background-image: url(images/nen.png.png);
-  background-size: cover;
-  min-height: 100vh;
-  text-align: center;
+html, body {
+  height: 100%;
+  overflow: hidden; /* Ngăn thanh cuộn */
 }
 
+body {
+  background-image: url(images/nen.png.png); /* Ảnh nền */
+  background-size: cover; /* Phủ toàn màn hình */
+  background-position: center; /* Căn giữa ảnh */
+  background-attachment: fixed; /* Cố định background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* CSS cho dòng chữ GAME CON HEO */
+#gameBox > div:first-child {
+  font-size: 2.5rem; 
+  font-weight: bold; 
+  color: #fff; 
+  text-align: center; 
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+
+/* Màn hình hướng dẫn */
 .instructions {
   background-color: rgba(255, 255, 255, 0.9);
-  margin: 10% auto;
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   width: 400px;
+  text-align: center;
 }
 
 .instructions h1 {
@@ -45,30 +65,26 @@ body {
   background-color: #45a049;
 }
 
-.box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
+/* Vùng chơi game */
 .wrapper {
-  margin-top: 40px;
-  margin-left: 530px;
   width: 65vmin;
   height: 70vmin;
   display: flex;
+  overflow: hidden;
   flex-direction: column;
-  background: #0763be;
+  justify-content: center;
   border-radius: 5px;
+  background: #0763be;
   box-shadow: 0 20px 40px rgba(63, 14, 113, 0.2);
 }
 
 .game-details {
+  color: #031214;
+  font-weight: 500;
+  font-size: 1.2rem;
+  padding: 20px 27px;
   display: flex;
   justify-content: space-between;
-  padding: 15px;
-  color: #ffffff;
-  font-size: 1.2rem;
 }
 
 .play-board {
@@ -89,7 +105,7 @@ body {
   background-size: cover;
 }
 
-.bigfood{
+.bigfood {
   background-image: url(images/hamburger.png);
   background-size: cover;
 }
