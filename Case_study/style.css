@@ -6,11 +6,12 @@
 }
 
 body {
+  background-image: url(images/nen.png.png);
+  background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: #79b7e3;
 }
 
 .wrapper {
@@ -21,7 +22,7 @@ body {
   flex-direction: column;
   justify-content: center;
   border-radius: 5px;
-  background: #ab0ee3;
+  background: #0763be;
   box-shadow: 0 20px 40px rgba(63, 14, 113, 0.2);
 }
 
@@ -38,25 +39,19 @@ body {
   height: 100%;
   width: 100%;
   display: grid;
-  place-items: center; 
-  background: #2f0152;
-  grid-template: repeat(30, 1fr) / repeat(30, 1fr);
+  background: #d3f0f1;
+  grid-template: repeat(20, 1fr) / repeat(20, 1fr);
 }
-h1 {
-  margin-bottom: 20px;
-  color: white;
-  text-align: center;
-}
+
 .food {
-  background-image: url(images/tao1.png);
+  background-image: url(images/cheese.png);
   background-size: cover;
 }
 .head {
-  background-image: url(images/dau.png);
+  background-image: url(images/heo.png);
   background-size: cover;
 }
-.body {
-  background-image: url(images/body.png);
+.bigfood{
+  background-image: url(images/hamburger.png);
   background-size: cover;
 }
-

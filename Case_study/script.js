@@ -3,32 +3,51 @@ const scoreElement = document.querySelector(".score");
 const highScoreElement = document.querySelector(".high-score");
 
 let gameOver = false;
-let foodX, foodY;
+let foodX, foodY, bigFoodX, bigFoodY;
 let snakeX = 5, snakeY = 10;
 let vantocX = 0, vantocY = 0;
 let snakeBody = [];
 let setIntervalId;
 let score = 0;
+let showBigFood = false;
+let bigFoodTimeout;
+let bigFoodInterval;
+let isBigFoodCoolDownTimeout;
+let isBigFoodCoolDown = false;
 
-
-//Lưu trữ điểm cao nhất
+// Lưu trữ điểm cao nhất
 let highScore = localStorage.getItem("high-score") || 0;
 highScoreElement.innerText = `High Score: ${highScore}`;
 
-//Thay đổi vị trí thức ăn
+// Thay đổi vị trí thức ăn
 const updateFoodPosition = () => {
-  foodX = Math.floor(Math.random() * 30) + 1;
-  foodY = Math.floor(Math.random() * 30) + 1;
+  foodX = Math.floor(Math.random() * 20) + 1;
+  foodY = Math.floor(Math.random() * 20) + 1;
 }
 
-//GameOver
+// Thay đổi vị trí bigfood
+const updateBigFoodPosition = () => {
+  bigFoodX = Math.floor(Math.random() * 19) + 1;
+  bigFoodY = Math.floor(Math.random() * 19) + 1;
+  showBigFood = true;
+
+  // Bigfood tồn tại trong 10 giây
+  clearTimeout(bigFoodTimeout); // Hủy timeout trước đó nếu có
+  bigFoodTimeout = setTimeout(() => {
+    showBigFood = false; // Sau 10 giây, ẩn bigfood
+  }, 1000);
+}
+
+// GameOver
 const handleGameOver = () => {
   clearInterval(setIntervalId);
+  clearTimeout(bigFoodTimeout);
+  clearInterval(bigFoodInterval);
   alert("Game Over! Press OK to replay...");
   location.reload();
 }
 
-//Thay đổi hướng của con rắn
+// Thay đổi hướng của con rắn
 const changeDirection = e => {
   if (e.key === "ArrowUp" && vantocY != 1) {
     vantocX = 0;
@@ -45,59 +64,77 @@ const changeDirection = e => {
   }
 }
 
-//Bắt đầu game
+// Bắt đầu game
 const initGame = () => {
   if (gameOver) return handleGameOver();
   let html = `<div class="food" style="grid-area: ${foodY} / ${foodX}"></div>`;
 
-  
   // Kiểm tra xem rắn có ăn thức ăn không
   if (snakeX === foodX && snakeY === foodY) {
     updateFoodPosition();
-    snakeBody.push([foodY, foodX]); 
-  //Khi ăn thức ăn sẽ công thêm điểm
-    score++; 
+    snakeBody.push([foodY, foodX]);
+    score++;
     highScore = score >= highScore ? score : highScore;
     localStorage.setItem("high-score", highScore);
     scoreElement.innerText = `Score: ${score}`;
     highScoreElement.innerText = `High Score: ${highScore}`;
   }
-  
-  //Gắn vận tốc cho con rắn
+
+  // Kiểm tra xem rắn có ăn bigfood không
+  if (showBigFood && snakeX >= bigFoodX && snakeX < bigFoodX + 2 && snakeY >= bigFoodY && snakeY < bigFoodY + 2) {
+    showBigFood = false;
+    updateBigFoodPosition();
+    score += 5;
+    highScore = score >= highScore ? score : highScore;
+    localStorage.setItem("high-score", highScore);
+    scoreElement.innerText = `Score: ${score}`;
+    highScoreElement.innerText = `High Score: ${highScore}`;
+
+    // Tăng chiều dài con rắn khi ăn bigfood
+    snakeBody.push(snakeBody[snakeBody.length - 1]);
+    snakeBody.push(snakeBody[snakeBody.length - 1]);
+  }
+  // Gắn vận tốc cho con rắn
   snakeX += vantocX;
   snakeY += vantocY;
 
-  //Tăng chiều dài con rắn khi nó ăn được thức ăn
+  // Tăng chiều dài con rắn khi nó ăn được thức ăn
   for (let i = snakeBody.length - 1; i > 0; i--) {
     snakeBody[i] = snakeBody[i - 1];
   }
-  snakeBody[0] = [snakeX, snakeY]; 
 
-  //Khi con rắn ra khỏi vùng sẽ quay trở lại ở đầu bên kia
+  snakeBody[0] = [snakeX, snakeY];
+
+  // Khi con rắn ra khỏi vùng sẽ quay trở lại ở đầu bên kia
   if (snakeX < 1) {
-    snakeX = 30;
-  } else if (snakeX > 30) {
+    snakeX = 20;
+  } else if (snakeX > 20) {
     snakeX = 1;
   }
   if (snakeY < 1) {
-    snakeY = 30;
-  } else if (snakeY > 30) {
+    snakeY = 20;
+  } else if (snakeY > 20) {
     snakeY = 1;
   }
 
-    
-  //Chiều dài con rắn 
+  // Chiều dài con rắn
   for (let i = 0; i < snakeBody.length; i++) {
     html += `<div class="head" style="grid-area: ${snakeBody[i][1]} / ${snakeBody[i][0]}"></div>`;
     if (i !== 0 && snakeBody[0][1] === snakeBody[i][1] && snakeBody[0][0] === snakeBody[i][0]) {
       gameOver = true;
     }
   }
+
+  // Bigfood
+  if (showBigFood) {
+  html += `<div class="bigfood" style="grid-area: ${bigFoodY} / ${bigFoodX} / span 2 / span 2"></div>`;
+  }
+
   playBoard.innerHTML = html;
 }
 
-
 updateFoodPosition();
-setIntervalId = setInterval(initGame, 100);
+updateBigFoodPosition();
+setIntervalId = setInterval(initGame, 125);
+bigFoodInterval= setInterval(updateBigFoodPosition, 10000);
 document.addEventListener("keyup", changeDirection);
-
