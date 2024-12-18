@@ -38,7 +38,7 @@ const updateBigFoodPosition = () => {
   clearTimeout(bigFoodTimeout); // Hủy timeout trước đó nếu có
   bigFoodTimeout = setTimeout(() => {
     showBigFood = false; // Sau 10 giây, ẩn bigfood
-  }, 10000);
+  }, 7000);
 }
 
 // Bắt đầu Game
@@ -94,6 +94,9 @@ const initGame = () => {
   if (showBigFood && snakeX >= bigFoodX && snakeX < bigFoodX + 2 && snakeY >= bigFoodY && snakeY < bigFoodY + 2) {
     showBigFood = false;
     updateBigFoodPosition();
+    setTimeout(() => {
+      showBigFood =false;
+    })
     score += 5;
     highScore = score >= highScore ? score : highScore;
     localStorage.setItem("high-score", highScore);
@@ -146,7 +149,7 @@ const initGame = () => {
 updateFoodPosition();
 updateBigFoodPosition();
 setIntervalId = setInterval(initGame, 125);
-bigFoodInterval= setInterval(updateBigFoodPosition, 10000);
+bigFoodInterval= setInterval(updateBigFoodPosition, 7000);
 document.addEventListener("keyup", changeDirection);
 startGameButton.addEventListener("click", startGame);
 document.addEventListener("keyup", changeDirection);
