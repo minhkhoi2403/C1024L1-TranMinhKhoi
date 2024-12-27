@@ -4,6 +4,7 @@ const highScoreElement = document.querySelector(".high-score");
 const startGameButton = document.getElementById("startGame");
 const instructions = document.getElementById("instructions");
 const gameBox = document.getElementById("gameBox");
+const controls = document.querySelectorAll(".controls i");
 
 let gameOver = false;
 let foodX, foodY, bigFoodX, bigFoodY;
@@ -30,15 +31,16 @@ const updateFoodPosition = () => {
 
 // Thay đổi vị trí bigfood
 const updateBigFoodPosition = () => {
+  if (bigFoodCoolDown) return;
   bigFoodX = Math.floor(Math.random() * 19) + 1;
   bigFoodY = Math.floor(Math.random() * 19) + 1;
   showBigFood = true;
 
-  //Bigfood tồn tại trong 10 giây
-  clearTimeout(bigFoodTimeout); // Hủy timeout trước đó nếu có
+//Bigfood tồn tại trong 10 giây
+  clearTimeout(bigFoodTimeout); 
   bigFoodTimeout = setTimeout(() => {
     showBigFood = false; // Sau 10 giây, ẩn bigfood
-  }, 7000);
+  }, 4400);
 }
 
 // Bắt đầu Game
@@ -74,6 +76,9 @@ const changeDirection = e => {
   }
 }
 
+controls.forEach(button => button.addEventListener("click", () => changeDirection({ key: button.dataset.key })));
+
+
 // Bắt đầu game
 const initGame = () => {
   if (gameOver) return GameOver();
@@ -107,6 +112,7 @@ const initGame = () => {
     snakeBody.push(snakeBody[snakeBody.length - 1]);
     snakeBody.push(snakeBody[snakeBody.length - 1]);
   }
+  
   // Gắn vận tốc cho con rắn
   snakeX += vantocX;
   snakeY += vantocY;
@@ -120,14 +126,14 @@ const initGame = () => {
 
   // Khi con rắn ra khỏi vùng sẽ quay trở lại ở đầu bên kia
   if (snakeX < 1) {
-    snakeX = 20;
+    snakeX = 21;
   } else if (snakeX > 20) {
-    snakeX = 1;
+    snakeX = 0;
   }
   if (snakeY < 1) {
-    snakeY = 20;
+    snakeY = 21;
   } else if (snakeY > 20) {
-    snakeY = 1;
+    snakeY = 0;
   }
 
   // Chiều dài con rắn
@@ -144,6 +150,7 @@ const initGame = () => {
   }
 
   playBoard.innerHTML = html;
+
 }
 
 updateFoodPosition();

@@ -1,4 +1,6 @@
 /* CSS Reset */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -22,6 +24,7 @@ body {
 }
 /* CSS cho dòng chữ GAME CON HEO */
 #gameBox > div:first-child {
+  font-family: 'Silkscreen',sans-serif;
   font-size: 2.5rem; 
   font-weight: bold; 
   color: #fff; 
@@ -67,8 +70,8 @@ body {
 
 /* Vùng chơi game */
 .wrapper {
-  width: 65vmin;
-  height: 70vmin;
+  width: 70vmin;
+  height: 80vmin;
   display: flex;
   overflow: hidden;
   flex-direction: column;
@@ -76,6 +79,7 @@ body {
   border-radius: 5px;
   background: #0763be;
   box-shadow: 0 20px 40px rgba(63, 14, 113, 0.2);
+  border-radius: 2%;
 }
 
 .game-details {
@@ -88,15 +92,15 @@ body {
 }
 
 .play-board {
+  background: #d3f0f1;
   height: 100%;
   width: 100%;
   display: grid;
-  background: #d3f0f1;
   grid-template: repeat(20, 1fr) / repeat(20, 1fr);
 }
 
 .food {
-  background-image: url(images/cheese.png);
+  background-image: url(images/bread.png);
   background-size: cover;
 }
 
@@ -108,4 +112,29 @@ body {
 .bigfood {
   background-image: url(images/hamburger.png);
   background-size: cover;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 20px; 
+  margin-top: 5px;
+  margin-bottom: 5x;
+}
+
+.controls i {
+  font-size: 1.5rem; 
+  padding: 15px;
+  color: #f34e17; 
+  background-color: #fff; 
+  border: 2px solid #e6073b; 
+  border-radius: 20%;
+  cursor: pointer; 
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); 
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.controls i:hover {
+  background-color: #45a049; /* Đổi màu khi hover */
+  transform: scale(1.5); /* Tăng kích thước khi hover */
 }
